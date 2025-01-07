@@ -127,7 +127,7 @@ def main():
         st.text("Statistics:")
 
         # Convert the emotion tally dictionary to a pandas DataFrame
-        emotion_df = pd.DataFrame(list(emotion_tallies.items()), columns=["Emotion", "Count"])
+        emotion_df = pd.DataFrame(list(emotion_tallies.items()), columns=["", "Count"])
 
         # Create an Altair bar chart
         chart = alt.Chart(emotion_df).mark_bar().encode(
