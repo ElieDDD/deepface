@@ -50,12 +50,12 @@ def tally_emotions(emotions):
         dominant_emotion = emotion.get("dominant_emotion", "No face detected")
         emotion_counts[dominant_emotion] = emotion_counts.get(dominant_emotion, 0) + 1
     return emotion_counts
-
+numer = 10
 # Display images in a grid with labels
 def display_images_with_labels(image_paths, emotions):
-    cols = st.columns(3)  # Set up 3 columns per row
+    cols = st.columns(numer)  # Set up 3 columns per row
     for idx, image_path in enumerate(image_paths):
-        col = cols[idx % 3]  # Place each image in one of the three columns
+        col = cols[idx % numer]  # Place each image in one of the three columns
         with col:
             # Open and blur image
             image = Image.open(image_path)
@@ -70,7 +70,7 @@ def display_images_with_labels(image_paths, emotions):
 
 # Main Streamlit app
 def main():
-    st.title("Emotion Detection with Blurred Images")
+    st.title("The everyday language of emotion is based on the presumption of interiority, Ahmed ")
     st.text("Upload a folder of images, and we'll detect emotions while applying a blur effect to each image!")
 
     # Upload folder
