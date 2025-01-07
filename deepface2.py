@@ -1,12 +1,11 @@
 
-
-#use_container_width=True
 import os
 from PIL import Image, ImageFilter
 import streamlit as st
 from deepface import DeepFace
 import numpy as np
 import pandas as pd  # Import pandas for creating the DataFrame
+import altair as alt  # Import altair for creating the chart
 
 # Function to detect emotions from an image
 def detect_emotions(image):
@@ -30,7 +29,7 @@ def detect_emotions(image):
         return {"dominant_emotion": "No face detected", "emotion": {}}
 
 # Function to blur an image
-def blur_image(image, radius=35):
+def blur_image(image, radius=12):
     """
     Apply a blur effect to the given image using PIL.
     :param image: PIL Image object
@@ -38,6 +37,17 @@ def blur_image(image, radius=35):
     :return: Blurred PIL Image object
     """
     return image.filter(ImageFilter.GaussianBlur(radius))
+
+# Function to resize the image to a fixed size
+def resize_image(image, width=300, height=300):
+    """
+    Resize the image to the specified width and height while maintaining aspect ratio.
+    :param image: PIL Image object
+    :param width: Desired width (default is 300)
+    :param height: Desired height (default is 300)
+    :return: Resized PIL Image object
+    """
+    return image.resize((width, height))
 
 # Function to tally emotions
 def tally_emotions(emotions):
@@ -51,18 +61,23 @@ def tally_emotions(emotions):
         dominant_emotion = emotion.get("dominant_emotion", "No face detected")
         emotion_counts[dominant_emotion] = emotion_counts.get(dominant_emotion, 0) + 1
     return emotion_counts
-numer = 10
-# Display images in a grid with labels
-def display_images_with_labels(image_paths, emotions):
-    cols = st.columns(numer)  # Set up 3 columns per row
-    for idx, image_path in enumerate(image_paths):
-        col = cols[idx % numer]  # Place each image in one of the three columns
-        with col:
-            # Open and blur image
-            image = Image.open(image_path)
-            blurred_image = blur_image(image)  # Apply blur effect
 
-            # Display blurred image
+# Display images in a grid with labels
+def display_images_with_labels(image_paths, emotions, image_size=(300, 300)):
+    cols = st.columns(10)  # Set up 3 columns per row
+    for idx, image_path in enumerate(image_paths):
+        col = cols[idx % 10]  # Place each image in one of the three columns
+        with col:
+            # Open the image
+            image = Image.open(image_path)
+            
+            # Resize image to fixed dimensions
+            resized_image = resize_image(image, *image_size)
+            
+            # Blur the resized image
+            blurred_image = blur_image(resized_image)  # Apply blur effect
+
+            # Display the blurred image
             st.image(blurred_image, use_container_width=True)
 
             # Display emotion label
@@ -71,16 +86,16 @@ def display_images_with_labels(image_paths, emotions):
 
 # Main Streamlit app
 def main():
+    
     st.title("Construct of Emotion")
     st.text("Decoding through computer vision is a set of decisions about how to interpret visual messages that is shaped by cultural and social values, in addition to producing them")
     st.text( "Arnold & Tilton, Distant Viewing 2023")
     st.text("Upload a folder of images, and detect emotional constructs while applying a blur effect to each image")
-
     # Upload folder
     uploaded_files = st.file_uploader("Upload Image Files", type=["jpg", "jpeg", "png"], accept_multiple_files=True)
 
     if uploaded_files:
-        st.text("Analyzing emotions for uploaded images...")
+        st.text("Analyzing  uploaded images...")
         
         image_paths = []  # Store uploaded image paths
         emotions = []  # Store emotion results
@@ -103,18 +118,27 @@ def main():
             emotions.append(emotion_result)
 
         # Display results in a grid with blur effect
-        st.text("Images blurred for privacy:")
+        st.text("Here are the blurred images with detected emotions:")
         display_images_with_labels(image_paths, emotions)
 
-        # Tally and display emotion statistics as a bar chart
+        # Tally and display emotion statistics using Altair
         emotion_tallies = tally_emotions(emotions)
-        st.text("Statistics:")
+        st.text("Emotion Constructs:")
 
         # Convert the emotion tally dictionary to a pandas DataFrame
         emotion_df = pd.DataFrame(list(emotion_tallies.items()), columns=["Emotion", "Count"])
 
-        # Display the bar chart
-        st.bar_chart(emotion_df.set_index("Emotion"))
+        # Create an Altair bar chart
+        chart = alt.Chart(emotion_df).mark_bar().encode(
+            x=alt.X('Emotion:N', sort=None),  # Categorical x-axis (emotion names)
+            y='Count:Q',  # Count on the y-axis
+            color='Emotion:N'  # Different color for each emotion
+        ).properties(
+            title="Statistics"
+        )
+
+        # Display the chart in Streamlit
+        st.altair_chart(chart, use_container_width=True)
 
 if __name__ == "__main__":
     main()
