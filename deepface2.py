@@ -39,6 +39,17 @@ def blur_image(image, radius=40):
     """
     return image.filter(ImageFilter.GaussianBlur(radius))
 
+# Function to resize the image to a fixed size
+def resize_image(image, width=300, height=300):
+    """
+    Resize the image to the specified width and height while maintaining aspect ratio.
+    :param image: PIL Image object
+    :param width: Desired width (default is 300)
+    :param height: Desired height (default is 300)
+    :return: Resized PIL Image object
+    """
+    return image.resize((width, height))
+
 # Function to tally emotions
 def tally_emotions(emotions):
     """
