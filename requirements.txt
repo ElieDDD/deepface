@@ -1,2 +1,4 @@
-opencv-python
+streamlit
 deepface
+pillow
+tensorflow  # or tensorflow-cpu for lightweight installations
