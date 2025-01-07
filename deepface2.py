@@ -12,7 +12,7 @@ def detect_emotions(image):
     """
     temp_image_path = "sun.jpg"
     image.save(temp_image_path)  # Save the image temporarily
-
+    
     try:
         # Analyze emotions using DeepFace
         analysis = DeepFace.analyze(temp_image_path, actions=["emotion"], enforce_detection=False)
@@ -34,12 +34,12 @@ def blur_image(image, radius=10):
     :return: Blurred PIL Image object
     """
     return image.filter(ImageFilter.GaussianBlur(radius))
-
+numer = 10
 # Display images in a grid with labels
 def display_images_with_labels(image_paths, emotions):
-    cols = st.columns(10)  # Set up 3 columns per row
+    cols = st.columns(numer)  # Set up 3 columns per row
     for idx, image_path in enumerate(image_paths):
-        col = cols[idx % 3]  # Place each image in one of the three columns
+        col = cols[idx % numer]  # Place each image in one of the three columns
         with col:
             # Open and blur image
             image = Image.open(image_path)
