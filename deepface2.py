@@ -8,11 +8,22 @@ import numpy as np
 def detect_emotions(image):
     """
     Detect emotions from the input image using DeepFace.
+    Handles cases where DeepFace returns a list or no face is detected.
     """
     temp_image_path = "sun.jpg"
     image.save(temp_image_path)  # Save the image temporarily
-    analysis = DeepFace.analyze(temp_image_path, actions=["emotion"], enforce_detection=False)
-    return analysis
+
+    try:
+        # Analyze emotions using DeepFace
+        analysis = DeepFace.analyze(temp_image_path, actions=["emotion"], enforce_detection=False)
+        
+        # Check if output is a list or dictionary
+        if isinstance(analysis, list):  # DeepFace may return a list
+            return analysis[0]  # Access the first result in the list
+        return analysis  # Return the dictionary directly if it's not a list
+    except Exception as e:
+        # Handle cases where no face is detected or another error occurs
+        return {"dominant_emotion": "No face detected", "emotion": {}}
 
 # Display images in a grid with labels
 def display_images_with_labels(image_paths, emotions):
@@ -25,7 +36,7 @@ def display_images_with_labels(image_paths, emotions):
             st.image(image, use_column_width=True)
 
             # Display emotion label
-            emotion = emotions[idx]["dominant_emotion"]
+            emotion = emotions[idx].get("dominant_emotion", "Error")
             st.caption(f"Emotion: {emotion}")
 
 # Main Streamlit app
