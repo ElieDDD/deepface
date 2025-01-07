@@ -9,7 +9,7 @@ def detect_emotions(image):
     """
     Detect emotions from the input image using DeepFace.
     """
-    temp_image_path = "temp_image.jpg"
+    temp_image_path = "sun.jpg"
     image.save(temp_image_path)  # Save the image temporarily
     analysis = DeepFace.analyze(temp_image_path, actions=["emotion"], enforce_detection=False)
     return analysis
