@@ -64,21 +64,26 @@ def tally_emotions(emotions):
     return emotion_counts
 
 # Display images in a grid with labels
-def display_images_with_labels(image_paths, emotions):
+def display_images_with_labels(image_paths, emotions, image_size=(300, 300)):
     cols = st.columns(10)  # Set up 3 columns per row
     for idx, image_path in enumerate(image_paths):
         col = cols[idx % 10]  # Place each image in one of the three columns
         with col:
-            # Open and blur image
+            # Open the image
             image = Image.open(image_path)
-            blurred_image = blur_image(image)  # Apply blur effect
+            
+            # Resize image to fixed dimensions
+            resized_image = resize_image(image, *image_size)
+            
+            # Blur the resized image
+            blurred_image = blur_image(resized_image)  # Apply blur effect
 
-            # Display blurred image
+            # Display the blurred image
             st.image(blurred_image, use_container_width=True)
 
             # Display emotion label
             emotion = emotions[idx].get("dominant_emotion", "Error")
-            st.caption(f": {emotion}")
+            st.caption(f"Emotion: {emotion}")
             
 # Main Streamlit app
 def main():
