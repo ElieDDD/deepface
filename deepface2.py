@@ -83,7 +83,7 @@ def display_images_with_labels(image_paths, emotions, image_size=(300, 300)):
 
             # Display emotion label
             emotion = emotions[idx].get("dominant_emotion", "Error")
-            st.caption(f"Emotion: {emotion}")
+            st.caption(f": {emotion}")
             
 # Main Streamlit app
 def main():
