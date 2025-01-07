@@ -30,7 +30,7 @@ def detect_emotions(image):
         return {"dominant_emotion": "No face detected", "emotion": {}}
 
 # Function to blur an image
-def blur_image(image, radius=40):
+def blur_image(image, radius=12):
     """
     Apply a blur effect to the given image using PIL.
     :param image: PIL Image object
@@ -87,10 +87,10 @@ def display_images_with_labels(image_paths, emotions, image_size=(300, 300)):
             
 # Main Streamlit app
 def main():
-    st.title("Constructs of Discrete Emotion Detection")
+    st.title("Constructs of Emotion Detection")
     st.text("Upload a folder of images, and detect emotional constructs, blurs are added for privacy")
     st.text("Decoding through computer vision is a set of decisions about how to interpret visual messages that is shaped by cultural and social values, in addition to producing them")
-    st.text( "Arnold & Tilton, Distant Viewing 2023")        
+    st.text( "Arnold & Tilton, Distant Viewing, 2023, MIT Press")        
     # Upload folder
     uploaded_files = st.file_uploader("Upload Image Files", type=["jpg", "jpeg", "png"], accept_multiple_files=True)
 
