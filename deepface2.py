@@ -30,7 +30,7 @@ def detect_emotions(image):
         return {"dominant_emotion": "No face detected", "emotion": {}}
 
 # Function to blur an image
-def blur_image(image, radius=10):
+def blur_image(image, radius=40):
     """
     Apply a blur effect to the given image using PIL.
     :param image: PIL Image object
@@ -67,7 +67,7 @@ def display_images_with_labels(image_paths, emotions):
 
             # Display emotion label
             emotion = emotions[idx].get("dominant_emotion", "Error")
-            st.caption(f"Emotion: {emotion}")
+            st.caption(f": {emotion}")
 
 # Main Streamlit app
 def main():
@@ -78,7 +78,7 @@ def main():
     uploaded_files = st.file_uploader("Upload Image Files", type=["jpg", "jpeg", "png"], accept_multiple_files=True)
 
     if uploaded_files:
-        st.text("Analyzing emotions for uploaded images...")
+        st.text("Analyzing emotional constructs for uploaded images...")
         
         image_paths = []  # Store uploaded image paths
         emotions = []  # Store emotion results
@@ -106,7 +106,7 @@ def main():
 
         # Tally and display emotion statistics using Altair
         emotion_tallies = tally_emotions(emotions)
-        st.text("Emotion Statistics:")
+        st.text("Statistics:")
 
         # Convert the emotion tally dictionary to a pandas DataFrame
         emotion_df = pd.DataFrame(list(emotion_tallies.items()), columns=["Emotion", "Count"])
@@ -117,7 +117,7 @@ def main():
             y='Count:Q',  # Count on the y-axis
             color='Emotion:N'  # Different color for each emotion
         ).properties(
-            title="Emotion Detection Statistics"
+            title="Emotion Statistics"
         )
 
         # Display the chart in Streamlit
