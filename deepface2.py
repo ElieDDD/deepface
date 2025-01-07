@@ -68,6 +68,7 @@ def display_images_with_labels(image_paths, emotions):
             # Display emotion label
             emotion = emotions[idx].get("dominant_emotion", "Error")
             st.caption(f": {emotion}")
+            st.text("Decoding through computer vision is a set of decisions about how to interpret visual messages that is shaped by cultural and social values, in addition to producing them")
 
 # Main Streamlit app
 def main():
