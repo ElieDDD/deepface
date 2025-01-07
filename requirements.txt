@@ -2,3 +2,8 @@ streamlit
 deepface
 pillow
 tensorflow  # or tensorflow-cpu for lightweight installations
+#opencv-python-contrib-headless 
+opencv-python-headless
+streamlit
+numpy
+
