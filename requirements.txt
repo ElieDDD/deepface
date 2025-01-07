@@ -6,4 +6,5 @@ tensorflow  # or tensorflow-cpu for lightweight installations
 opencv-python-headless
 streamlit
 numpy
+tf.keras
 
