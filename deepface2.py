@@ -88,7 +88,7 @@ def display_images_with_labels(image_paths, emotions, image_size=(300, 300)):
 def main():
     
     st.title("Construct of Emotion")
-    st.text("Decoding through computer vision is a set of decisions about how to interpret visual messages that is shaped by cultural and social values, in addition to producing them")
+    st.text("Decoding through computer vision is a set of decisions about how to interpret visual messages that is shaped by cultural and social values, in addition to producing them.")
     st.text( "Arnold & Tilton, Distant Viewing 2023")
     st.text("Upload a folder of images, and detect emotional constructs while applying a blur effect to each image")
     # Upload folder
