@@ -50,7 +50,7 @@ def tally_emotions(emotions):
         dominant_emotion = emotion.get("dominant_emotion", "No face detected")
         emotion_counts[dominant_emotion] = emotion_counts.get(dominant_emotion, 0) + 1
     return emotion_counts
-numer = 10
+numer = 20
 # Display images in a grid with labels
 def display_images_with_labels(image_paths, emotions):
     cols = st.columns(numer)  # Set up 3 columns per row
@@ -100,7 +100,7 @@ def main():
             emotions.append(emotion_result)
 
         # Display results in a grid with blur effect
-        st.text("Here are the blurred images with detected emotions:")
+        st.text("Images blurred for privacy:")
         display_images_with_labels(image_paths, emotions)
 
         # Tally and display emotion statistics as a bar chart
