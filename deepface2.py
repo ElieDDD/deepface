@@ -37,7 +37,7 @@ def blur_image(image, radius=10):
 
 # Display images in a grid with labels
 def display_images_with_labels(image_paths, emotions):
-    cols = st.columns(4)  # Set up 3 columns per row
+    cols = st.columns(10)  # Set up 3 columns per row
     for idx, image_path in enumerate(image_paths):
         col = cols[idx % 3]  # Place each image in one of the three columns
         with col:
