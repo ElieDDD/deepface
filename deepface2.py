@@ -68,13 +68,13 @@ def display_images_with_labels(image_paths, emotions):
             # Display emotion label
             emotion = emotions[idx].get("dominant_emotion", "Error")
             st.caption(f": {emotion}")
-            st.text("Decoding through computer vision is a set of decisions about how to interpret visual messages that is shaped by cultural and social values, in addition to producing them")
-            st.text("Decoding through computer vision is a set of decisions about how to interpret visual messages that is shaped by cultural and social values, in addition to producing them")
+            
 # Main Streamlit app
 def main():
     st.title("Constructs of Emotion Detection")
     st.text("Upload a folder of images, and detect emotional constructs, blurs are added for privacy")
-
+    st.text("Decoding through computer vision is a set of decisions about how to interpret visual messages that is shaped by cultural and social values, in addition to producing them")
+            
     # Upload folder
     uploaded_files = st.file_uploader("Upload Image Files", type=["jpg", "jpeg", "png"], accept_multiple_files=True)
 
