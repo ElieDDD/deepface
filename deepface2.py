@@ -1,9 +1,12 @@
+
+#use_container_width=True
 import os
 from PIL import Image, ImageFilter
 import streamlit as st
 from deepface import DeepFace
 import numpy as np
-#use_container_width=True
+import pandas as pd  # Import pandas for creating the DataFrame
+
 # Function to detect emotions from an image
 def detect_emotions(image):
     """
@@ -34,12 +37,25 @@ def blur_image(image, radius=10):
     :return: Blurred PIL Image object
     """
     return image.filter(ImageFilter.GaussianBlur(radius))
-numer = 10
+
+# Function to tally emotions
+def tally_emotions(emotions):
+    """
+    Tally the occurrences of each detected emotion.
+    :param emotions: List of emotion dictionaries
+    :return: Dictionary of emotion tallies
+    """
+    emotion_counts = {}
+    for emotion in emotions:
+        dominant_emotion = emotion.get("dominant_emotion", "No face detected")
+        emotion_counts[dominant_emotion] = emotion_counts.get(dominant_emotion, 0) + 1
+    return emotion_counts
+
 # Display images in a grid with labels
 def display_images_with_labels(image_paths, emotions):
-    cols = st.columns(numer)  # Set up 3 columns per row
+    cols = st.columns(3)  # Set up 3 columns per row
     for idx, image_path in enumerate(image_paths):
-        col = cols[idx % numer]  # Place each image in one of the three columns
+        col = cols[idx % 3]  # Place each image in one of the three columns
         with col:
             # Open and blur image
             image = Image.open(image_path)
@@ -86,6 +102,16 @@ def main():
         # Display results in a grid with blur effect
         st.text("Here are the blurred images with detected emotions:")
         display_images_with_labels(image_paths, emotions)
+
+        # Tally and display emotion statistics as a bar chart
+        emotion_tallies = tally_emotions(emotions)
+        st.text("Emotion Statistics:")
+
+        # Convert the emotion tally dictionary to a pandas DataFrame
+        emotion_df = pd.DataFrame(list(emotion_tallies.items()), columns=["Emotion", "Count"])
+
+        # Display the bar chart
+        st.bar_chart(emotion_df.set_index("Emotion"))
 
 if __name__ == "__main__":
     main()
