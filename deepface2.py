@@ -33,7 +33,7 @@ def display_images_with_labels(image_paths, emotions):
         with col:
             # Display image
             image = Image.open(image_path)
-            st.image(image, use_container_width)
+            st.image(image, use_container_width=True)
 
             # Display emotion label
             emotion = emotions[idx].get("dominant_emotion", "Error")
