@@ -70,7 +70,8 @@ def display_images_with_labels(image_paths, emotions):
 
 # Main Streamlit app
 def main():
-    st.title("decoding through computer vision is a set of decisions about how to interpret visual messages that is shaped by cultural and social values, in addition to producing them, Arnold & Tilton, 2013")
+    st.title("decoding through computer vision is a set of decisions about how to interpret visual messages that is shaped by cultural and social values, in addition to producing them")
+     st.text( "Arnold & Tilton, Distant Viewing 2023")
     st.text("Upload a folder of images, and we'll detect emotions while applying a blur effect to each image!")
 
     # Upload folder
