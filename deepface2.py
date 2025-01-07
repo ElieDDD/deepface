@@ -25,6 +25,15 @@ def detect_emotions(image):
         # Handle cases where no face is detected or another error occurs
         return {"dominant_emotion": "No face detected", "emotion": {}}
 
+def blur_image(image, radius=5):
+    """
+    Apply a blur effect to the given image using PIL.
+    :param image: PIL Image object
+    :param radius: Intensity of the blur (default is 5)
+    :return: Blurred PIL Image object
+    """
+    return image.filter(ImageFilter.GaussianBlur(radius))
+
 # Display images in a grid with labels
 def display_images_with_labels(image_paths, emotions):
     cols = st.columns(3)  # Set up 3 columns per row
