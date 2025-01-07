@@ -71,8 +71,8 @@ def display_images_with_labels(image_paths, emotions):
 
 # Main Streamlit app
 def main():
-    st.title("Emotion Detection with Blurred Images")
-    st.text("Upload a folder of images, and we'll detect emotions while applying a blur effect to each image!")
+    st.title("Constructs of Emotion Detection")
+    st.text("Upload a folder of images, and detect emotional constructs, blurs are added for privacy")
 
     # Upload folder
     uploaded_files = st.file_uploader("Upload Image Files", type=["jpg", "jpeg", "png"], accept_multiple_files=True)
