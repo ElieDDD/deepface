@@ -87,7 +87,7 @@ def display_images_with_labels(image_paths, emotions, image_size=(300, 300)):
             
 # Main Streamlit app
 def main():
-    st.title("Constructs of Emotion Detection")
+    st.title("Constructs of Discrete Emotion Detection")
     st.text("Upload a folder of images, and detect emotional constructs, blurs are added for privacy")
     st.text("Decoding through computer vision is a set of decisions about how to interpret visual messages that is shaped by cultural and social values, in addition to producing them")
     st.text( "Arnold & Tilton, Distant Viewing 2023")        
@@ -118,7 +118,7 @@ def main():
             emotions.append(emotion_result)
 
         # Display results in a grid with blur effect
-        st.text("Here are the blurred images with detected emotions:")
+        st.text("Here are the blurred images with detected emotions, one question we might ask is are they really so discreetly categorisable?:")
         display_images_with_labels(image_paths, emotions)
 
         # Tally and display emotion statistics using Altair
