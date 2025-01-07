@@ -1,9 +1,9 @@
 import os
-from PIL import Image
+from PIL import Image, ImageFilter
 import streamlit as st
 from deepface import DeepFace
 import numpy as np
-
+#use_container_width=True
 # Function to detect emotions from an image
 def detect_emotions(image):
     """
@@ -25,6 +25,7 @@ def detect_emotions(image):
         # Handle cases where no face is detected or another error occurs
         return {"dominant_emotion": "No face detected", "emotion": {}}
 
+# Function to blur an image
 def blur_image(image, radius=5):
     """
     Apply a blur effect to the given image using PIL.
@@ -34,6 +35,7 @@ def blur_image(image, radius=5):
     """
     return image.filter(ImageFilter.GaussianBlur(radius))
 
+# Display images in a grid with labels
 def display_images_with_labels(image_paths, emotions):
     cols = st.columns(3)  # Set up 3 columns per row
     for idx, image_path in enumerate(image_paths):
@@ -52,8 +54,8 @@ def display_images_with_labels(image_paths, emotions):
 
 # Main Streamlit app
 def main():
-    st.title("Emotion Detection for Folder of Images")
-    st.text("Upload a folder of images, and we'll detect emotions for each image!")
+    st.title("Emotion Detection with Blurred Images")
+    st.text("Upload a folder of images, and we'll detect emotions while applying a blur effect to each image!")
 
     # Upload folder
     uploaded_files = st.file_uploader("Upload Image Files", type=["jpg", "jpeg", "png"], accept_multiple_files=True)
@@ -81,8 +83,8 @@ def main():
             emotion_result = detect_emotions(image)
             emotions.append(emotion_result)
 
-        # Display results in a grid
-        st.text("Here are the analyzed images with detected emotions:")
+        # Display results in a grid with blur effect
+        st.text("Here are the blurred images with detected emotions:")
         display_images_with_labels(image_paths, emotions)
 
 if __name__ == "__main__":
