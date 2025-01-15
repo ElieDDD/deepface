@@ -118,7 +118,7 @@ def main():
             emotions.append(emotion_result)
 
         # Display results in a grid with blur effect
-        st.text("Here are the blurred images with detected emotions:")
+        st.text("Here are the images with detected emotions:")
         display_images_with_labels(image_paths, emotions)
 
         # Tally and display emotion statistics using Altair
