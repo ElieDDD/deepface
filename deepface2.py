@@ -29,7 +29,7 @@ def detect_emotions(image):
         return {"dominant_emotion": "No face detected", "emotion": {}}
 
 # Function to blur an image
-def blur_image(image, radius=12):
+def blur_image(image, radius=1):
     """
     Apply a blur effect to the given image using PIL.
     :param image: PIL Image object
