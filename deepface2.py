@@ -90,7 +90,7 @@ def main():
     st.title("Construct of Emotion")
     st.text("Decoding through computer vision is a set of decisions about how to interpret visual messages that is shaped by cultural and social values, in addition to producing them.")
     st.text( "Arnold & Tilton, Distant Viewing 2023")
-    st.text("Upload a folder of images, and detect emotional constructs while applying a blur effect to each image")
+    st.text("Upload a folder of images, and detect emotional constructs.")
     # Upload folder
     uploaded_files = st.file_uploader("Upload Image Files", type=["jpg", "jpeg", "png"], accept_multiple_files=True)
 
