@@ -1,14 +1,11 @@
-
 import os
 import tempfile
-from PIL import Image, ImageFilter
+from PIL import Image
 import streamlit as st
 from deepface import DeepFace
 import pandas as pd
 import altair as alt
 from concurrent.futures import ThreadPoolExecutor
-
-# Remove micropip import since it's unnecessary in standard environments
 
 def detect_emotions(image_path):
     """
@@ -34,9 +31,6 @@ def save_temp_image(image):
         image.save(temp_file.name)
         return temp_file.name
 
-def blur_image(image, radius=3):
-    return image.filter(ImageFilter.GaussianBlur(radius))
-
 def tally_emotions(emotions):
     """
     Count the occurrences of each detected emotion.
@@ -58,7 +52,7 @@ def display_images_with_labels(image_paths, emotions):
         col = cols[idx % num_cols]
         with col:
             image = Image.open(image_path)
-            st.image(blur_image(image), use_container_width=True)
+            st.image(image, use_container_width=True)
             st.caption(f": {emotions[idx].get('dominant_emotion', 'Error')}")
 
 def main():
